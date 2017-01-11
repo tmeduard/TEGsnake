@@ -1,0 +1,2 @@
+﻿  game.cpp
+d:\revy\code blocks\vs projects\tegsnake\tegsnake\game.cpp(141): error C2660: 'gameOverScreen': function does not take 0 arguments
