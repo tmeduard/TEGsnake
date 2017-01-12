@@ -8,12 +8,19 @@ definedSnake snake;
 definedTail tail;
 int gameScore;
 enum eDirecton { STOP = 0, LEFT, RIGHT, UP, DOWN };
-eDirecton dir;
+eDirecton dir, prevDir;
 void fruitSetUp() {
 	fruit.x = rand() % width;
 	fruit.y = rand() % height;
+	if (rand() % 3 == 0 || rand() % 3 == 1)
+		fruit.value = 'F';
+	else fruit.value = 'M';
 }
 void snakeSetUp() {
+	dir = STOP;
+	prevDir = STOP;
+	gameScore = 0;
+	tail.length = 0;
 	snake.x = width / 2;
 	snake.y = height / 2;
 }
@@ -33,7 +40,7 @@ void gameDraw(){
 			if (i == snake.y && j == snake.x)
 				cout << "O";
 			else if (i == fruit.y && j == fruit.x)
-				cout << "F";
+				cout << fruit.value;
 			else
 			{
 				bool print = false;
@@ -111,9 +118,11 @@ void gameLogic()
 	case DOWN:
 		snake.y++;
 		break;
-	default:
-		break;
 	}
+	if ((dir == LEFT && prevDir == RIGHT) || (dir == RIGHT && prevDir == LEFT) || (dir == UP && prevDir == DOWN) || (dir == DOWN && prevDir == UP))
+		if (tail.length != 0)
+			inGame = false;
+	prevDir = dir;
 	if (snake.x > width || snake.x < 0 || snake.y > height || snake.y < 0)
 	  inGame = false;
 
@@ -123,9 +132,20 @@ void gameLogic()
 
 	if (snake.x == fruit.x && snake.y == fruit.y)
 	{
-		gameScore += 10;
-		fruitSetUp();
-		tail.length++;
+		if (fruit.value == 'F') {
+			gameScore += 10;
+			fruitSetUp();
+			tail.length++;
+		}
+		else if (fruit.value == 'M' && tail.length != 0) {
+				gameScore += 10;
+				fruitSetUp();
+				tail.length--;
+			}
+			else if (fruit.value == 'M' && tail.length == 0) {
+					gameScore += 10;
+					fruitSetUp();
+				}
 	}
 }
 void game() {
@@ -138,5 +158,6 @@ void game() {
 		gameLogic();
 		Sleep(100);
 	}
-	gameOverScreen();
+	newScores(gameScore);
+	gameOverScreen(1,gameScore,0);
 }

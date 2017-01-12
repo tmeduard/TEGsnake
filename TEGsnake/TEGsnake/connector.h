@@ -20,11 +20,13 @@ struct definedTail {
 };
 struct definedFruit {
 	int x, y;
+	char value;
 };
 void menu();
 void game();
 void score();
 void newScores(int);
 void gameOverScreen(int,int,int);
+void scoreMenu();
 #endif // !CONNECTOR_H_
 

@@ -37,7 +37,7 @@ void versusDraw(int score1, int score2) {
 		cout << "PRESS ENTER TO RETURN TO MENU";
 	}
 }
-void gameOverScreen(int score1,int score2,int nrPlayers) {
+void gameOverScreen(int nrPlayers,int score1,int score2) {
 	inScreen = true;
 	if (nrPlayers == 1) {
 		screenDraw(score1);

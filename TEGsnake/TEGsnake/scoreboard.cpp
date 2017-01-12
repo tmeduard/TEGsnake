@@ -31,22 +31,18 @@ void newScores(int newSC) {
 		}
 	}
 	scoreSet();
-
 }
 void scoreDraw() {
-	while (inScore == true)
-	{
 		system("cls");
 		for (int i = 0; i<10; i++)
 			cout << "Locul " << i + 1 << ":  " << topScore[i] << "  puncte" << endl;
-		cout << endl << "BACK TO MENU ( ENTER ) ";
-		cout << endl<<"RESET SCOREBOARD(SPACE)";
-		Sleep(100);
+		cout << endl << "BACK TO SCORE MENU ( LEFT ARROW ) ";
+		cout << endl<<"RESET SCOREBOARD( SPACE )";
 		switch (_getch())
 		{
-		case VK_RETURN:
+		case KB_LEFT:
 			inScore = false;
-			menu();
+			scoreMenu();
 			break;
 		case KB_SPACE:
 			ofstream outFile;
@@ -59,9 +55,9 @@ void scoreDraw() {
 			score();
 		}
 	}
-}
 void score() {
 	scoreGet();
 	inScore = true;
-	scoreDraw();
+	while (inScore == true)
+		scoreDraw();
 }

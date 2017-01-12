@@ -30,8 +30,10 @@ void menuSelect() {
 	if (k % 4 == 2)
 	{
 		inMenu = false;
-		score();
+		scoreMenu();
 	}
+	if (k % 4 == 3)
+		inMenu = false;
 }
 void menuInput() {
 	if (_kbhit())
