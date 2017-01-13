@@ -9,12 +9,17 @@ definedTail tail;
 int gameScore;
 enum eDirecton { STOP = 0, LEFT, RIGHT, UP, DOWN };
 eDirecton dir, prevDir;
+char prevFruit;
 void fruitSetUp() {
+	prevFruit = fruit.value;
 	fruit.x = rand() % width;
 	fruit.y = rand() % height;
-	if (rand() % 3 == 0 || rand() % 3 == 1)
+	if (rand() % 10 >= 0 && rand() % 10 <= 4)
 		fruit.value = 'F';
-	else fruit.value = 'M';
+	if (rand() % 10 >= 5 && rand() % 10 <= 7)
+		fruit.value = 'M';
+	if (rand() % 10 >= 8 && rand() % 10 <= 9)
+		fruit.value = 'I';
 }
 void snakeSetUp() {
 	dir = STOP;
@@ -66,6 +71,27 @@ void gameDraw(){
 		cout << "#";
 	cout << endl;
 	cout << "Score:" << gameScore << endl;
+	cout << endl << " " << fruit.value << " = ";
+	if (fruit.value == 'F')
+		cout << "NORMAL FRUIT";
+	if (fruit.value == 'M')
+		cout << "TAIL -1";
+	if (fruit.value == 'I')
+		cout << "WALL COLLISION IMMUNITY TILL NEXT FRUIT IS EATEN";
+}
+void deathCondition(char condition) {
+	if (condition == 'I') {
+		if (snake.x >= width)
+			snake.x = 0;
+		else if (snake.x < 0)
+				snake.x = width - 1;
+		if (snake.y >= height)
+			snake.y = 0;
+		else if (snake.y < 0)
+				snake.y = height - 1;
+	}
+	else if (snake.x > width || snake.x < 0 || snake.y > height || snake.y < 0)
+				inGame = false;
 }
 void gameInput()
 {
@@ -123,9 +149,7 @@ void gameLogic()
 		if (tail.length != 0)
 			inGame = false;
 	prevDir = dir;
-	if (snake.x > width || snake.x < 0 || snake.y > height || snake.y < 0)
-	  inGame = false;
-
+	deathCondition(prevFruit);
 	for (int i = 0; i < tail.length; i++)
 		if (tail.x[i] == snake.x && tail.y[i] == snake.y)
 			inGame = false;
@@ -137,15 +161,21 @@ void gameLogic()
 			fruitSetUp();
 			tail.length++;
 		}
-		else if (fruit.value == 'M' && tail.length != 0) {
+		else if (fruit.value == 'I') {
 				gameScore += 10;
 				fruitSetUp();
-				tail.length--;
+				tail.length++;
 			}
-			else if (fruit.value == 'M' && tail.length == 0) {
+			else if (fruit.value == 'M' && tail.length != 0) {
 					gameScore += 10;
 					fruitSetUp();
+					tail.length--;
 				}
+				else if (fruit.value == 'M' && tail.length == 0) {
+						gameScore += 10;
+						fruitSetUp();
+					}
+
 	}
 }
 void game() {

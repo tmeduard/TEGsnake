@@ -3,30 +3,25 @@
 bool inScoreMenu;
 int contor;
 void scoreMenuSelect() {
-	if (contor % 3 == 0)
+	if (contor % 2 == 0)
 	{
 		inScoreMenu = false;
 		score();
 	}
 
-	if (contor % 3 == 1)
+	if (contor % 2 == 1)
 	{
 		inScoreMenu = false;
 	}
-	if (contor % 3 == 2)
-		inScoreMenu = false;
 }
 void scoreMenuDraw() {
 	if (inScoreMenu == true)
 	{
 		system("cls");
-		if (contor % 3 == 0)
+		if (contor % 2 == 0)
 			cout << "SOLO PLAY SCORE" << endl << endl;
 		else cout << "solo play score" << endl << endl;
-		if (contor % 3 == 1)
-			cout << "ONE vs ONE SCORE" << endl << endl;
-		else cout << "one vs one score" << endl << endl;
-		if (contor % 3 == 2)
+		if (contor % 2 == 1)
 			cout << "PLAYER vs COMPUTER SCORE" << endl << endl;
 		else cout << "player vs computer score" << endl << endl;
 	}
@@ -40,12 +35,12 @@ void scoreInput() {
 		case KB_UP:
 			contor--;
 			if (contor<0)
-				contor = 2;
+				contor = 1;
 			scoreMenuDraw();
 			break;
 		case KB_DOWN:
 			contor++;
-			if (contor>2)
+			if (contor>1)
 				contor = 0;
 			scoreMenuDraw();
 			break;

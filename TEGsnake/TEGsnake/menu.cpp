@@ -18,6 +18,8 @@ void menuDraw() {
 		if (k % 4 == 3)
 			cout << "EXIT" << endl << endl;
 		else cout << "exit" << endl << endl;
+		cout << endl << endl << endl;
+		cout << "UP/DOWN ARROW AND ENTER TO NAVIGATE";
 	}
 }
 void menuSelect() {
