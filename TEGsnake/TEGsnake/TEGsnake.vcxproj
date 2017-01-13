@@ -163,6 +163,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="TEGsnake.cpp" />
+    <ClCompile Include="versusMode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="memScore.inout" />

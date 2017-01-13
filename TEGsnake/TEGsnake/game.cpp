@@ -14,11 +14,11 @@ void fruitSetUp() {
 	prevFruit = fruit.value;
 	fruit.x = rand() % width;
 	fruit.y = rand() % height;
-	if (rand() % 10 >= 0 && rand() % 10 <= 4)
+	if (rand() % 10 >= 0 && rand() % 10 <= 6)
 		fruit.value = 'F';
-	if (rand() % 10 >= 5 && rand() % 10 <= 7)
+	if (rand() % 10 >= 7 && rand() % 10 <= 8)
 		fruit.value = 'M';
-	if (rand() % 10 >= 8 && rand() % 10 <= 9)
+	if (rand() % 10 == 9 )
 		fruit.value = 'I';
 }
 void snakeSetUp() {

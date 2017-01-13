@@ -28,5 +28,7 @@ void score();
 void newScores(int);
 void gameOverScreen(int,int,int);
 void scoreMenu();
+void versusGame();
+void fruitSetUp();
 #endif // !CONNECTOR_H_
 
