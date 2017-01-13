@@ -166,6 +166,7 @@
     <ClCompile Include="versusMode.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="computerScore.inout" />
     <None Include="memScore.inout" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

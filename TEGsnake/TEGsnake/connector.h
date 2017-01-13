@@ -25,10 +25,11 @@ struct definedFruit {
 void menu();
 void game();
 void score();
-void newScores(int);
+void newScores(int,int);
 void gameOverScreen(int,int,int);
 void scoreMenu();
 void versusGame();
-void fruitSetUp();
+void computerVersus();
+void versusScore();
 #endif // !CONNECTOR_H_
 

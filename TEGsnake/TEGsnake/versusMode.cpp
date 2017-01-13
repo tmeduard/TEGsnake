@@ -2,7 +2,7 @@
 #include "connector.h"
 bool INGame;
 const int height = 18;
-const int width = 32;
+const int width = 34;
 definedFruit Fruit;
 definedSnake snake[2];
 definedTail tail[2];
@@ -85,7 +85,7 @@ void versusGameDraw() {
 	for (int i = 0; i < width + 2; i++)
 		cout << "#";
 	cout << endl;
-	cout << "P1Score:" << gameScore[0] << "	P2Score:" << gameScore[1] << endl;
+	cout << "P1Score:" << gameScore[0] << "		P2Score:" << gameScore[1] << endl;
 	cout << endl << " " << Fruit.value << " = ";
 	if (Fruit.value == 'F')
 		cout << "NORMAL FRUIT";
@@ -117,12 +117,12 @@ void versusDeathCondition(char condition) {
 			snake[1].y = height - 1;
 	}
 	else {
-			if (snake[0].x > width || snake[0].x < 0 || snake[0].y > height || snake[0].y < 0) {
+			if (snake[0].x > width-1 || snake[0].x < 0 || snake[0].y > height-1 || snake[0].y < 0) {
 				INGame = false;
 				diedFirst = 1;
 			}
 
-			if (snake[1].x > width || snake[1].x < 0 || snake[1].y > height || snake[1].y < 0) {
+			if (snake[1].x > width-1 || snake[1].x < 0 || snake[1].y > height-1 || snake[1].y < 0) {
 				INGame = false;
 				diedFirst = 2;
 			}
@@ -329,4 +329,105 @@ void versusGame() {
 	if (diedFirst == 1)
 		gameOverScreen(2, gameScore[0], gameScore[1]+100);
 	else gameOverScreen(2, gameScore[0]+100, gameScore[1]);
+}
+void computerLogic() {
+	if (dir[0] != STOP) {
+		if (Fruit.x > snake[1].x) {
+			if (snake[1].x < width)
+				snake[1].x++;
+			else {
+				if (snake[1].y > 0)
+					snake[1].y++;
+				else if (snake[1].y < height)
+						snake[1].y--;
+			}
+		}
+		if (Fruit.x < snake[1].x) {
+			if (snake[1].x > 0)
+				snake[1].x--;
+			else {
+				if (snake[1].y > 0)
+					snake[1].y++;
+				else if (snake[1].y < height)
+					snake[1].y--;
+			}
+		}
+
+
+		if (Fruit.y > snake[1].y) {
+			if (snake[1].y < height)
+				snake[1].y++;
+			else {
+				if (snake[1].x > 0)
+					snake[1].x++;
+				else if (snake[1].x < width)
+					snake[1].x--;
+			}	
+		}
+		if (Fruit.y < snake[1].y) {
+			if (snake[1].y > 0)
+				snake[1].y--;
+			else {
+				if (snake[1].x > 0)
+					snake[1].x++;
+				else if (snake[1].x < width)
+					snake[1].x--;
+			}
+		}	
+	}
+
+	if (snake[1].x == Fruit.x && snake[1].y == Fruit.y) {
+		if (Fruit.value == 'M' || Fruit.value == 'I') {
+			if (tail[1].length != 0) {
+				versusFruitSetUp();
+				tail[1].length--;
+				gameScore[1] += 10;
+			}
+			else {
+				versusFruitSetUp();
+				gameScore[1] += 10;
+			}
+
+		}
+		else {
+			versusFruitSetUp();
+			tail[1].length++;
+			gameScore[1] += 10;
+		}
+
+	}
+	int prevX, prevY;
+	int prev2X, prev2Y;
+
+	prevX = tail[1].x[0];
+
+	prevY = tail[1].y[0];
+
+	tail[1].x[0] = snake[1].x;
+
+	tail[1].y[0] = snake[1].y;
+
+	for (int i = 1; i < tail[1].length; i++)
+	{
+		prev2X = tail[1].x[i];
+		prev2Y = tail[1].y[i];
+		tail[1].x[i] = prevX;
+		tail[1].y[i] = prevY;
+		prevX = prev2X;
+		prevY = prev2Y;
+	}
+}
+void computerVersus() {
+	INGame = true;
+	versusFruitSetUp();
+	versusSnakeSetUp();
+	while (INGame == true) {
+		versusGameDraw();
+		versusGameInput();
+		versusGameLogic1();
+		computerLogic();
+		Sleep(100);
+	}
+	newScores(gameScore[0], 1);
+	gameOverScreen(1, gameScore[0], 0);
 }

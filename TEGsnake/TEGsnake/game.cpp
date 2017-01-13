@@ -90,7 +90,7 @@ void deathCondition(char condition) {
 		else if (snake.y < 0)
 				snake.y = height - 1;
 	}
-	else if (snake.x > width || snake.x < 0 || snake.y > height || snake.y < 0)
+	else if (snake.x > width-1 || snake.x < 0 || snake.y > height-1 || snake.y < 0)
 				inGame = false;
 }
 void gameInput()
@@ -188,6 +188,6 @@ void game() {
 		gameLogic();
 		Sleep(100);
 	}
-	newScores(gameScore);
+	newScores(gameScore,0);
 	gameOverScreen(1,gameScore,0);
 }

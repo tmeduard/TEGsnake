@@ -12,6 +12,7 @@ void scoreMenuSelect() {
 	if (contor % 2 == 1)
 	{
 		inScoreMenu = false;
+		versusScore();
 	}
 }
 void scoreMenuDraw() {
