@@ -324,6 +324,14 @@ void versusGame() {
 		versusGameLogic1();
 		versusGameInput();
 		versusGameLogic2();
+		if (gameScore[0] + 200 == gameScore[1]) {
+			INGame = false;
+			gameOverScreen(2, 0, 1);
+		}
+		else if (gameScore[0] == gameScore[1] + 200) {
+				INGame = false;
+				gameOverScreen(2, 1, 0);
+			}
 		Sleep(100);
 	}
 	if (diedFirst == 1)
